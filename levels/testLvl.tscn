@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://tileset/tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Spikes.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Door.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Level.gd" type="Script" id=8]
+[ext_resource path="res://Lever.tscn" type="PackedScene" id=10]
+[ext_resource path="res://GrabPoint.tscn" type="PackedScene" id=12]
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 8 )
+
+[node name="Player" parent="." instance=ExtResource( 7 )]
+position = Vector2( -8, -24 )
+z_index = 1
+
+[node name="GrabPoints" type="Node2D" parent="."]
+
+[node name="GrabPoint4" parent="GrabPoints" instance=ExtResource( 12 )]
+scale = Vector2( 2, 2 )
+
+[node name="Solids" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Solids"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Solids/StaticBody2D"]
+position = Vector2( -264, -320 )
+polygon = PoolVector2Array( 128, 312, 128, 328, 392, 328, 392, 312 )
+
+[node name="Mecha" type="Node2D" parent="."]
+
+[node name="Levers" type="Node2D" parent="Mecha"]
+
+[node name="Lever" parent="Mecha/Levers" instance=ExtResource( 10 )]
+position = Vector2( 24, 0 )
+tag = "1"
+
+[node name="Doors" type="Node2D" parent="Mecha"]
+
+[node name="Door" parent="Mecha/Doors" instance=ExtResource( 4 )]
+position = Vector2( 8, 0 )
+tag = "1"
+
+[node name="Spikes" type="Node2D" parent="Mecha"]
+
+[node name="Spikes" parent="Mecha/Spikes" instance=ExtResource( 3 )]
+isOn = false
+tag = "2"
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+cell_quadrant_size = 128
+cell_custom_transform = Transform2D( 8, 0, 0, 8, 0, 0 )
+format = 1
+tile_data = PoolIntArray( 262153, 22, 0, 262154, 22, 0 )
